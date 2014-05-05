@@ -6,6 +6,10 @@
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 	<style>
+	a:link
+	{
+		text-decoration: none;
+	}
 	#container
 	{
 		margin: 4px;
@@ -40,6 +44,7 @@
 		var output ="<table data-role='table' id='my-table' data-mode='reflow'>";
 		output +="<tbody>";
 		$.each(result, function() {
+			
 			if(odd){
 				output += "<tr class='odd'>";
 				odd = !odd;
@@ -49,10 +54,9 @@
       			odd= !odd;
       		}
       		output += "<td><img src='" + this['iconUrl'] + "' width='20' height='20'></td>";
-      		output += "<td>" + this['name'] + "</td>";
+      		output += "<td>" + "<a href='http://facebook.com/"+ this['facebookPageId'] + "' data-rel='dialog' data-transition='slidedown'>" + this['name'] + "</a></td>";
   			output += "</tr>";
   		});
-  		console.log(output);
   		output += "</tbody>";
   		output += "</table>";
 		$('#result').html(output);
