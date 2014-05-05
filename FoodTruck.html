@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chicago Food Trucks</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+	<style>
+	#container
+	{
+		margin: 4px;
+	}
+	.odd
+	{
+		background-color: rgba(220,220,200, .4);
+
+	}
+	.even
+	{
+		background-color: rgba(240,240,240, .4);
+	}
+	table
+	{
+		width: 100%;
+	}
+	</style>
+	<script>
+	$(document).ready(function() {	
+			$("#btnGetInfo").click(function(){
+		  		$.ajax({url:"http://www.chicagofoodtruckfinder.com/services/trucks?appkey=J2TIBbD6",
+		  			success:function(result){
+		    			parseJSON(result)
+				}});
+			});
+	});
+
+	function parseJSON(result)
+	{
+		var odd= true;
+		var output ="<table data-role='table' id='my-table' data-mode='reflow'>";
+		output +="<tbody>";
+		$.each(result, function() {
+			if(odd){
+				output += "<tr class='odd'>";
+				odd = !odd;
+      		} else
+      		{
+      			output += "<tr class='even'>";
+      			odd= !odd;
+      		}
+      		output += "<td><img src='" + this['iconUrl'] + "' width='20' height='20'></td>";
+      		output += "<td>" + this['name'] + "</td>";
+  			output += "</tr>";
+  		});
+  		console.log(output);
+  		output += "</tbody>";
+  		output += "</table>";
+		$('#result').html(output);
+	}
+
+
+	</script>
+</head>
+<body>
+	<div id="container">
+	<button id="btnGetInfo">Get Current Food Truck Info</button>
+	<div id="result"></div>
+ 
+</body>
+</html>	
